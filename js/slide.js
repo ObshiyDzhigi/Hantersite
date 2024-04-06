@@ -38,3 +38,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500); // Время анимации, в данном случае 0.5 секунды (500 миллисекунд)
     });
 });
+
+
+
+const slider = document.getElementById('slider');
+let isDragging = false;
+let startX;
+
+slider.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    e.preventDefault(); // Предотвращаем выделение текста при зажатии левой кнопки мыши
+});
+
+slider.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const scrollDelta = startX - e.clientX;
+    slider.scrollLeft += scrollDelta;
+    startX = e.clientX;
+});
+
+slider.addEventListener('mouseup', () => {
+    isDragging = false;
+});
+
+slider.addEventListener('mouseleave', () => {
+    isDragging = false;
+});
