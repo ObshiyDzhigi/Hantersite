@@ -55,6 +55,7 @@ slider.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
     const scrollDelta = startX - e.clientX;
     slider.scrollLeft += scrollDelta;
+    
     startX = e.clientX;
 });
 
@@ -64,4 +65,31 @@ slider.addEventListener('mouseup', () => {
 
 slider.addEventListener('mouseleave', () => {
     isDragging = false;
+});
+
+
+const companyAll = document.querySelector('.company__all');
+let isMouseDown = false;
+let scrollLeft;
+
+companyAll.addEventListener('mousedown', (e) => {
+    isMouseDown = true;
+    startX = e.pageX - companyAll.offsetLeft;
+    scrollLeft = companyAll.scrollLeft;
+});
+
+companyAll.addEventListener('mouseleave', () => {
+    isMouseDown = false;
+});
+
+companyAll.addEventListener('mouseup', () => {
+    isMouseDown = false;
+});
+
+companyAll.addEventListener('mousemove', (e) => {
+    if (!isMouseDown) return;
+    e.preventDefault();
+    const x = e.pageX - companyAll.offsetLeft;
+    const walk = (x - startX) * 3;
+    companyAll.scrollLeft = scrollLeft - walk;
 });
